@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">📊 Admin Dashboard</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">📌 Event Popularity</h3>
+    <button id="popularity-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Load</button>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">🙋 Student Participation</h3>
+    <button id="participation-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm">Load</button>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">📑 Event Summary</h3>
+    <input type="number" id="summary-event-id" placeholder="Enter Event ID" class="border rounded px-2 py-1 text-sm w-full mb-2">
+    <button id="summary-btn" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">Get Summary</button>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">🏆 Top Students</h3>
+    <button id="top-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">Show Top 3</button>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">🎯 Filter by Event Type</h3>
+    <select id="event-type" class="border rounded px-2 py-1 text-sm w-full mb-2">
+      <option value="Workshop">Workshop</option>
+      <option value="Seminar">Seminar</option>
+      <option value="Fest">Fest</option>
+      <option value="Talk">Talk</option>
+      <option value="Hackathon">Hackathon</option>
+    </select>
+    <button id="filter-btn" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">Filter</button>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-semibold mb-2">💬 Event Feedback</h3>
+    <input type="number" id="feedback-event-id" placeholder="Enter Event ID" class="border rounded px-2 py-1 text-sm w-full mb-2">
+    <button id="feedback-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded text-sm">View Feedback</button>
+  </div>
+</div>
+
+<div id="report" class="mt-6 bg-white shadow rounded-lg p-4"></div>
+
+<script>
+/* Keep your original JS code here, unchanged */
+</script>
+{% endblock %}

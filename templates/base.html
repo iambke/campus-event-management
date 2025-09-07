@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Events - Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-indigo-600 text-white flex flex-col">
+      <div class="px-6 py-4 text-2xl font-bold border-b border-indigo-500">
+        🎓 Campus<span class="text-indigo-200">Events</span>
+      </div>
+      <nav class="flex-1 px-4 py-6 space-y-2">
+        <a href="/" class="block px-4 py-2 rounded-md hover:bg-indigo-500 transition">🎉 Events</a>
+        <a href="/admin" class="block px-4 py-2 rounded-md hover:bg-indigo-500 transition">📊 Admin Dashboard</a>
+      </nav>
+      <div class="px-6 py-4 text-xs text-indigo-200 border-t border-indigo-500">
+        ⚡ Prototype • FastAPI + SQLite
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col">
+      <!-- Topbar -->
+      <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <div class="font-semibold text-gray-700">📅 Campus Events Management</div>
+        <div class="text-sm text-gray-500">👩‍💻 Admin Panel</div>
+      </header>
+
+      <!-- Content -->
+      <main class="flex-1 p-6">
+        {% block content %}{% endblock %}
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-gray-100 text-center text-sm text-gray-500 py-3">
+        © 2025 Campus Events • Prototype
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

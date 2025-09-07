@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-2xl font-bold">🎉 Upcoming Events</h2>
+  <div class="flex items-center space-x-2">
+    <label for="student-select" class="text-sm font-medium">Select Student:</label>
+    <select id="student-select" class="border rounded px-2 py-1 text-sm">
+      <option value="1">Alice (ID 1)</option>
+      <option value="2">Bob (ID 2)</option>
+      <option value="3">Charlie (ID 3)</option>
+    </select>
+  </div>
+</div>
+
+<div class="overflow-x-auto bg-white shadow rounded-lg">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-indigo-50">
+      <tr>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Title</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Type</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Location</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      {% for event in events %}
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-2">{{ event.title }}</td>
+        <td class="px-4 py-2">
+          <span class="px-2 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full">
+            {{ event.type }}
+          </span>
+        </td>
+        <td class="px-4 py-2">{{ event.location }}</td>
+        <td class="px-4 py-2 space-x-2">
+          <button class="register-btn bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded text-sm" data-event="{{ event.id }}">Register</button>
+          <button class="feedback-btn bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm" data-event="{{ event.id }}">Feedback</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+function getSelectedStudent() {
+  return parseInt(document.getElementById("student-select").value);
+}
+
+async function register(eventId) {
+  let studentId = getSelectedStudent();
+  let res = await fetch(`/registrations/${eventId}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({student_id: studentId})
+  });
+  alert(await res.text());
+}
+
+async function feedback(eventId) {
+  let studentId = getSelectedStudent();
+  let rating = prompt("Enter rating (1-5):");
+  let comment = prompt("Any comment?");
+  let res = await fetch(`/feedback/${eventId}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({student_id: studentId, rating: parseInt(rating), comment})
+  });
+  alert(await res.text());
+}
+
+document.querySelectorAll(".register-btn").forEach(btn => {
+  btn.addEventListener("click", () => register(parseInt(btn.dataset.event)));
+});
+document.querySelectorAll(".feedback-btn").forEach(btn => {
+  btn.addEventListener("click", () => feedback(parseInt(btn.dataset.event)));
+});
+</script>
+{% endblock %}
