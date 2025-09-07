@@ -1,0 +1,62 @@
+Campus Event Management Platform - Design Document
+1. Data to Track
+•	Events: ID, name, type, date, time, location, created_by.
+•	Students: ID, name, email, college, department.
+•	Registrations: student_id, event_id, registration_date.
+•	Attendance: student_id, event_id, attendance_status.
+•	Feedback: student_id, event_id, rating (1-5), comments.
+________________________________________
+2. Database Schema
+Tables:
+•	events (event_id, name, type, date, time, location, created_by)
+•	students (student_id, name, email, college, department)
+•	registrations (id, student_id, event_id, registration_date)
+•	attendance (id, student_id, event_id, status)
+•	feedback (id, student_id, event_id, rating, comments)
+Relationships:
+•	One event → many registrations, attendance, feedback.
+•	One student → many registrations, attendance, feedback.
+________________________________________
+3. API Design
+Events Router
+•	POST /events/ → Create event
+•	GET /events/ → List events
+Registrations Router
+•	POST /registrations/ → Register student to event
+•	GET /registrations/{event_id} → View event registrations
+Attendance Router
+•	POST /attendance/ → Mark attendance
+•	GET /attendance/{event_id} → Get attendance list
+Feedback Router
+•	POST /feedback/ → Submit feedback
+•	GET /feedback/{event_id} → Get feedback for event
+Reports Router
+•	GET /reports/event-popularity → Registrations per event
+•	GET /reports/student-participation → Events attended by student
+•	GET /reports/attendance-percentage/{event_id} → Attendance percentage
+•	GET /reports/average-feedback/{event_id} → Average feedback score
+•	Bonus: GET /reports/top-students → Top 3 most active students
+________________________________________
+4. Workflows
+Registration → Attendance → Reporting
+1.	Registration
+o	Student selects event
+o	API call to /registrations/
+o	Entry created in registrations
+2.	Attendance
+o	On event day, student checks in
+o	API call to /attendance/
+o	Status updated in attendance
+3.	Feedback
+o	Student submits rating/comment
+o	API call to /feedback/
+4.	Reporting
+o	Admin queries reports via endpoints
+o	Event popularity, student participation, attendance %, feedback
+________________________________________
+5. Assumptions & Edge Cases
+•	Each student can register for an event only once (unique student_id + event_id in registrations).
+•	Duplicate feedback not allowed; only one feedback per student per event.
+•	Cancelled events should not appear in reports.
+•	Attendance must be marked only for registered students.
+•	If feedback is missing, exclude from average score calculations.
